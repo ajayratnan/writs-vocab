@@ -1,7 +1,8 @@
 // postcss.config.js
 module.exports = {
   plugins: {
-    '@tailwindcss/postcss': {},  // ← use the Tailwind PostCSS plugin package
-    autoprefixer: {},
+    'tailwindcss/nesting': {},    // if you ever use nesting
+    'tailwindcss': {},
+    'autoprefixer': {},
   },
-};
+}
