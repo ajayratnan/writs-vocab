@@ -5,6 +5,6 @@
 
 /* Any overrides */
 html, body {
-  background-color: theme('colors.bg');
+  background: theme('colors.bg', #FFFDF6);
   color: theme('colors["brand-navy"]');
 }
