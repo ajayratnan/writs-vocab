@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Your custom overrides… */
+/* Any overrides */
 html, body {
   background-color: theme('colors.bg');
   color: theme('colors["brand-navy"]');
