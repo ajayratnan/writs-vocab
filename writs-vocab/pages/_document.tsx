@@ -10,9 +10,8 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700&display=swap"
           rel="stylesheet"
         />
-        {/* no more inline tailwind CDN scripts here! */}
       </Head>
-      <body className="bg-white min-h-screen">
+      <body className="bg-cream text-brand-navy font-body">
         <Main />
         <NextScript />
       </body>
