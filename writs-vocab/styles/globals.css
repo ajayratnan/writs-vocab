@@ -1,18 +1,10 @@
 /* styles/globals.css */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* your custom resets or vars */
-:root {
-  --background: #FFFDF6;
-  --foreground: #002B42;
-}
-
-/* default body */
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+/* Your custom overrides… */
+html, body {
+  background-color: theme('colors.bg');
+  color: theme('colors["brand-navy"]');
 }
