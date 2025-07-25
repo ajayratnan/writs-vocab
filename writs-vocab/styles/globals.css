@@ -1,47 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700&display=swap');
+/* styles/globals.css */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Brand CSS Variables ────────────────────────────────────────── */
+/* your custom resets or vars */
 :root {
-  --background: #FFFDF6; /* cream */
-  --foreground: #002B42; /* navy */
+  --background: #FFFDF6;
+  --foreground: #002B42;
 }
 
-/* Optional dark‑mode override */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-/* ─── Base Element Styles ───────────────────────────────────────── */
+/* default body */
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
   font-family: 'Inter', sans-serif;
 }
-
-/* Headings use your Playfair Display / Merriweather stack */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', 'Merriweather', serif;
-}
-
-/* ─── Form Fields & Buttons ─────────────────────────────────────── */
-/* High‑contrast inputs, selects, textareas */
-input,
-textarea,
-select {
-  @apply text-gray-800 placeholder-gray-500 bg-white
-         border border-gray-300 rounded p-2;
-}
-
-/* If you want all buttons to share your brand look, uncomment this:
-button {
-  @apply text-white bg-brand-red font-body rounded-btn
-         px-4 py-2 hover:bg-red-700 transition;
-}
-*/
