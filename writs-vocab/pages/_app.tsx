@@ -1,5 +1,5 @@
 // pages/_app.tsx
-import '@/styles/globals.css';         // ← your Tailwind imports + any custom CSS
+import '../styles/globals.css'
 import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import { SessionContextProvider } from '@supabase/auth-helpers-react';
