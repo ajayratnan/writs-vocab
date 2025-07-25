@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        bg:       '#FFFDF6',
-        option:   '#F5F3EE',
+        bg:         '#FFFDF6',
+        option:     '#F5F3EE',
         'brand-red':   '#C90000',
         'brand-navy':  '#002B42',
       },
@@ -24,4 +24,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}
