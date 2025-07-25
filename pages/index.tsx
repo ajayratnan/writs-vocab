@@ -1,115 +1,135 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+// pages/index.tsx
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { supabase } from '@/lib/supabaseClient';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+type API_Set = { id: string; name: string; word_ids: string[] };
+type Set     = { id: string; name: string; wordIds: string[] };
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export default function HomePage() {
+  const [sets, setSets]       = useState<Set[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError]     = useState<string | null>(null);
 
-export default function Home() {
+  useEffect(() => {
+    async function loadSets() {
+      const { data, error } = await supabase
+        .from('sets')
+        .select('id,name,word_ids')
+        .order('created_at', { ascending: true });
+      if (error) {
+        setError(error.message);
+      } else {
+        setSets(
+          (data || []).map((r: API_Set) => ({
+            id: r.id,
+            name: r.name,
+            wordIds: r.word_ids,
+          }))
+        );
+      }
+      setLoading(false);
+    }
+    loadSets();
+  }, []);
+
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              pages/index.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="max-w-6xl mx-auto p-6 space-y-12">
+      {/* Hero */}
+      <section className="bg-white rounded-card shadow-lg p-8 grid lg:grid-cols-2 gap-8">
+        <div className="space-y-4">
+          <h2 className="font-heading text-3xl text-brand-navy">
+            Welcome to WRITS Vocabulary Builder
+          </h2>
+          <p className="font-body text-gray-800 leading-relaxed">
+            “Every word you master is a step towards confidence & success.”
+            Sharpen your vocabulary with bite‑sized flashcards, synonyms,
+            antonyms, and examples.
+          </p>
+          <blockquote className="italic text-[#C90000] font-body">
+            “Words are the most powerful drug used by mankind.”
+          </blockquote>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <img
+          src="/images/vocab-hero.png"
+          alt="Vocabulary Builder Illustration"
+          className="rounded-card shadow-md w-full h-auto max-h-64 object-contain mx-auto"
+        />
+      </section>
+
+      {/* Promo Posters */}
+      <div className="grid grid-cols-2 gap-6">
+        <img
+          src="/images/clat-poster.svg"
+          alt="CLAT Crash Batch 2026"
+          className="rounded-card shadow-md w-full h-auto max-h-60 object-cover"
+        />
+        <img
+          src="/images/fin-pioneers-poster.svg"
+          alt="FIN Pioneers Batch 1"
+          className="rounded-card shadow-md w-full h-auto max-h-60 object-cover"
+        />
+      </div>
+
+       {/* Centered “Choose Your Set” Banner */}
+      <div className="flex justify-center mt-12 mb-8">
+        <h2
+          className="
+            bg-beige
+            text-brand-navy
+            font-heading
+            text-2xl
+            py-3 px-6
+            rounded-full
+            shadow-md
+            text-center
+          "
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          Choose Your Set
+        </h2>
+      </div>
+
+      {/* Sets Grid */}
+      {loading ? (
+        <p className="text-center font-body text-gray-800">Loading sets…</p>
+      ) : error ? (
+        <p className="text-center font-body text-red-600">Error: {error}</p>
+      ) : sets.length === 0 ? (
+        <p className="text-center font-body text-gray-800">
+          No sets available. Check back soon!
+        </p>
+      ) : (
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          {sets.map((s) => (
+            <Link
+              key={s.id}
+              href={`/play/${s.id}`}
+              className="flex flex-col bg-white rounded-card shadow-md hover:shadow-lg transition p-6"
+            >
+              <h3 className="font-heading text-2xl mb-2">{s.name}</h3>
+              <p className="font-body mb-6">
+                {s.wordIds.length} word{s.wordIds.length !== 1 && 's'}
+              </p>
+
+              {/* Always-on, hex‑based pill button */}
+              <button
+                className="
+                  mt-auto 
+                  bg-[#C90000] 
+                  text-white 
+                  font-body 
+                  font-semibold 
+                  py-2 px-4 
+                  rounded-full 
+                  transition
+                "
+              >
+                Start Set
+              </button>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

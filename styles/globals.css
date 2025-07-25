@@ -1,17 +1,16 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,600;1,400&family=Playfair+Display:wght@700&display=swap');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Brand CSS Variables ────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFDF6; /* cream */
+  --foreground: #002B42; /* navy */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Optional dark‑mode override */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -19,8 +18,30 @@
   }
 }
 
+/* ─── Base Element Styles ───────────────────────────────────────── */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
+
+/* Headings use your Playfair Display / Merriweather stack */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', 'Merriweather', serif;
+}
+
+/* ─── Form Fields & Buttons ─────────────────────────────────────── */
+/* High‑contrast inputs, selects, textareas */
+input,
+textarea,
+select {
+  @apply text-gray-800 placeholder-gray-500 bg-white
+         border border-gray-300 rounded p-2;
+}
+
+/* If you want all buttons to share your brand look, uncomment this:
+button {
+  @apply text-white bg-brand-red font-body rounded-btn
+         px-4 py-2 hover:bg-red-700 transition;
+}
+*/
