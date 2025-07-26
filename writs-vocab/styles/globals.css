@@ -1,10 +1,9 @@
-/* styles/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Any overrides */
 html, body {
-  background: theme('colors.bg', #FFFDF6);
-  color: theme('colors["brand-navy"]');
+  background: #FFFDF6;
+  color: #002B42;
 }
